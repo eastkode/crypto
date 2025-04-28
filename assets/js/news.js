@@ -1,5 +1,5 @@
 // news.js for CryptoPulse News page
-// Replace 'YOUR_NEWSAPI_KEY' with your NewsAPI.org key
+// Removed NewsAPI references. Only using GNews API now.
 const GNEWS_API_KEY = '42e9b147279528a22a09e07adba40538';
 const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=crypto&lang=en&max=20&token=${GNEWS_API_KEY}`;
 

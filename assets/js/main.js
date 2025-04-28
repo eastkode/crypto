@@ -1,10 +1,8 @@
 // main.js for CryptoPulse static homepage
-// Replace 'YOUR_NEWSAPI_KEY' with your NewsAPI.org key
-const NEWS_API_KEY = 'a74a4f348bf943159dfbc96c0578108f';
-const NEWS_API_URL = 'https://newsapi.org/v2/everything?q=cryptocurrency&language=en&sortBy=publishedAt&pageSize=8&apiKey=' + NEWS_API_KEY;
-const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,xrp,cardano,polkadot,dogecoin,tron&order=market_cap_desc&per_page=8&page=1&sparkline=false';
+// Removed NewsAPI references. Only using GNews API now.
 const GNEWS_API_KEY = '42e9b147279528a22a09e07adba40538';
 const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=crypto&lang=en&max=8&token=${GNEWS_API_KEY}`;
+const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,xrp,cardano,polkadot,dogecoin,tron&order=market_cap_desc&per_page=8&page=1&sparkline=false';
 
 // Hero Slider Data (static headlines for demo)
 const HERO_SLIDES = [
