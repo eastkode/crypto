@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoPulse Live Prices | Real-Time Cryptocurrency Prices</title>
+  <meta name="description" content="Check real-time cryptocurrency prices for Bitcoin, Ethereum, Solana, XRP, and more. Powered by CoinGecko.">
+  <meta name="keywords" content="crypto prices, live prices, bitcoin, ethereum, solana, xrp, coinmarketcap, coingecko">
+  <meta name="author" content="CryptoPulse Team">
+  <meta property="og:title" content="CryptoPulse Live Prices | Real-Time Cryptocurrency Prices">
+  <meta property="og:description" content="Check real-time cryptocurrency prices for Bitcoin, Ethereum, Solana, XRP, and more. Powered by CoinGecko.">
+  <meta property="og:image" content="assets/logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/live-prices.html">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles/theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="assets/logo.svg" alt="CryptoPulse Logo">
+      <span>CryptoPulse</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <div class="dropdown">
+        <span>Categories ▼</span>
+        <div class="dropdown-content">
+          <a href="categories.html#bitcoin">Bitcoin</a>
+          <a href="categories.html#ethereum">Ethereum</a>
+          <a href="categories.html#altcoins">Altcoins</a>
+          <a href="categories.html#defi">DeFi</a>
+          <a href="categories.html#nfts">NFTs</a>
+          <a href="categories.html#regulations">Regulations</a>
+          <a href="categories.html#blockchain-technology">Blockchain Technology</a>
+          <a href="categories.html#market-analysis">Market Analysis</a>
+        </div>
+      </div>
+      <a href="live-prices.html">Live Prices</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <input type="search" placeholder="Search 🔍" class="search-bar" id="search-bar">
+    </nav>
+  </header>
+  <main>
+    <div class="home-container">
+      <h1>Live Coin Prices</h1>
+      <table id="live-prices-table" style="width:100%;background:#fff;border-radius:8px;box-shadow:0 2px 8px #eee;margin-top:24px">
+        <thead>
+          <tr style="background:#f8f8f8">
+            <th style="padding:0.75rem">Coin</th>
+            <th style="padding:0.75rem">Price (USD)</th>
+            <th style="padding:0.75rem">24h Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+    <div>
+      <a href="about.html">About</a> |
+      <a href="privacy-policy.html">Privacy Policy</a> |
+      <a href="terms-of-use.html">Terms of Use</a> |
+      <a href="contact.html">Contact Info</a>
+    </div>
+    <div style="margin-top: 1rem;">
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer">X</a>
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">FB</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Insta</a>
+    </div>
+    <div style="margin-top: 1rem; font-size: 0.95rem;">
+      &copy; 2025 CryptoPulse. All rights reserved.
+    </div>
+  </footer>
+  <script>
+    // Live Prices Table (CoinGecko)
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,xrp,cardano,polkadot,dogecoin,tron&order=market_cap_desc&per_page=8&page=1&sparkline=false')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector('#live-prices-table tbody');
+          tbody.innerHTML = '';
+          data.forEach(coin => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><img src="${coin.image}" alt="${coin.name}" style="height:20px;vertical-align:middle;margin-right:8px">${coin.name} (${coin.symbol.toUpperCase()})</td>
+              <td>$${coin.current_price.toLocaleString()}</td>
+              <td style="color:${coin.price_change_percentage_24h >= 0 ? 'green' : 'red'}">${coin.price_change_percentage_24h.toFixed(2)}%</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        });
+    });
+  </script>
+</body>
+</html>
