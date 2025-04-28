@@ -40,12 +40,51 @@ function renderHeroSlider() {
   }, 4000);
 }
 
+function renderBBCStyleNews(articles) {
+  const featuredIds = [
+    'featured-left',
+    'featured-right',
+    'featured-bottom-left',
+    'featured-bottom-right'
+  ];
+  // Fill featured grid
+  featuredIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && articles[i]) {
+      el.innerHTML = `
+        <img src="${articles[i].image || 'assets/logo.svg'}" alt="${articles[i].title}" style="width:100%;height:180px;object-fit:cover;">
+        <h2><a href="${articles[i].url}" target="_blank" style="color:#00796b;text-decoration:none;">${articles[i].title}</a></h2>
+        <p>${articles[i].description || ''}</p>
+      `;
+    } else if (el) {
+      el.innerHTML = '';
+    }
+  });
+  // Fill sidebar
+  const sidebar = document.getElementById('sidebar-headlines');
+  sidebar.innerHTML = '';
+  articles.slice(4, 10).forEach(article => {
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a>`;
+    sidebar.appendChild(li);
+  });
+}
+
+function fetchAndRenderBBCNews() {
+  fetch(GNEWS_API_URL)
+    .then(res => res.json())
+    .then(data => {
+      renderBBCStyleNews(data.articles || []);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   renderHeroSlider();
   fetchLatestNews();
   fetchTrendingCoins();
   renderTopStories();
   setupNewsletterForm();
+  fetchAndRenderBBCNews();
 });
 
 function fetchLatestNews() {
