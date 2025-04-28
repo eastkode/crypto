@@ -1,6 +1,6 @@
 // categories.js for CryptoPulse Categories page
 // Replace 'YOUR_NEWSAPI_KEY' with your NewsAPI.org key
-const NEWS_API_KEY = 'YOUR_NEWSAPI_KEY';
+const GNEWS_API_KEY = '42e9b147279528a22a09e07adba40538';
 const CATEGORY_QUERIES = {
   bitcoin: 'bitcoin',
   ethereum: 'ethereum',
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchCategoryNews(category, query) {
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=4&apiKey=${NEWS_API_KEY}`;
+  const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=4&token=${GNEWS_API_KEY}`;
   fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -29,10 +29,10 @@ function fetchCategoryNews(category, query) {
         const card = document.createElement('div');
         card.className = 'news-card';
         card.innerHTML = `
-          <img src="${article.urlToImage || 'assets/logo.svg'}" alt="${article.title}">
-          <h3>${article.title}</h3>
+          <img src="${article.image || 'assets/logo.svg'}" alt="${article.title}">
+          <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
           <p>${article.description ? article.description.slice(0, 120) : ''}...</p>
-          <a href="${article.url}" target="_blank" rel="noopener">Read More</a>
+          <a href="${article.url}" target="_blank">Read Full Article</a>
         `;
         newsList.appendChild(card);
       });

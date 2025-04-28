@@ -3,6 +3,8 @@
 const NEWS_API_KEY = 'a74a4f348bf943159dfbc96c0578108f';
 const NEWS_API_URL = 'https://newsapi.org/v2/everything?q=cryptocurrency&language=en&sortBy=publishedAt&pageSize=8&apiKey=' + NEWS_API_KEY;
 const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,xrp,cardano,polkadot,dogecoin,tron&order=market_cap_desc&per_page=8&page=1&sparkline=false';
+const GNEWS_API_KEY = '42e9b147279528a22a09e07adba40538';
+const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=crypto&lang=en&max=8&token=${GNEWS_API_KEY}`;
 
 // Hero Slider Data (static headlines for demo)
 const HERO_SLIDES = [
@@ -49,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchLatestNews() {
-  fetch(NEWS_API_URL)
+  fetch(GNEWS_API_URL)
     .then(res => res.json())
     .then(data => {
       const newsList = document.getElementById('latest-news');
@@ -58,10 +60,10 @@ function fetchLatestNews() {
         const card = document.createElement('div');
         card.className = 'news-card';
         card.innerHTML = `
-          <img src="assets/logo.svg" alt="Bitcoin price all-time high April 2025">
-          <h3><a href="article-bitcoin-price-hits-100k.html">Bitcoin Price Hits $100,000</a></h3>
-          <p>Bitcoin's price reaches an all-time high of $100,000. Read the latest analysis and future forecasts in today's crypto news.</p>
-          <a href="article-bitcoin-price-hits-100k.html">Read Full Article</a>
+          <img src="${article.image || 'assets/logo.svg'}" alt="${article.title}">
+          <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
+          <p>${article.description ? article.description.slice(0, 120) : ''}...</p>
+          <a href="${article.url}" target="_blank">Read Full Article</a>
         `;
         newsList.appendChild(card);
       });
